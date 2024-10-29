@@ -16,11 +16,14 @@ const formattedCounter = computed(() => {
   return counter.value.toString().padStart(3, "0");
 });
 
-// Create an array of numbers 0-9 for the rolling effect
-const digits = Array.from({ length: 10 }, (_, i) => i);
+// Modified: Add an extra 0 at the end for smooth transition from 9 to 0
+const digits = [...Array.from({ length: 10 }, (_, i) => i), 0];
 
-// Helper function to parse digit string to number
-const getDigitValue = (digit: string) => parseInt(digit, 10);
+// Modified: Calculate position considering the extra digit
+const getDigitTransform = (digit: string) => {
+  const value = parseInt(digit, 10);
+  return `translateY(-${value * 3}rem)`;
+};
 </script>
 
 <template>
@@ -31,19 +34,23 @@ const getDigitValue = (digit: string) => parseInt(digit, 10);
     <div
       class="relative z-10 flex flex-col items-center justify-center gap-6 py-16 text-center lg:py-24"
     >
-      <div class="odometer">
+      <div class="flex gap-0.5 rounded-lg bg-black p-2">
         <div
           v-for="(digit, index) in formattedCounter"
           :key="index"
-          class="digit-column"
+          class="h-12 overflow-hidden rounded bg-neutral-800"
         >
           <div
-            class="digits-wrapper"
+            class="transition-transform duration-300 ease-in-out"
             :style="{
-              transform: `translateY(-${getDigitValue(digit) * 3}rem)`,
+              transform: getDigitTransform(digit),
             }"
           >
-            <div v-for="n in digits" :key="n" class="digit">
+            <div
+              v-for="n in digits"
+              :key="n"
+              class="flex h-12 w-8 items-center justify-center font-mono text-2xl font-bold text-white"
+            >
               {{ n }}
             </div>
           </div>
@@ -57,36 +64,3 @@ const getDigitValue = (digit: string) => parseInt(digit, 10);
     </div>
   </div>
 </template>
-
-<style scoped>
-.odometer {
-  display: flex;
-  gap: 2px;
-  background: #000;
-  padding: 8px;
-  border-radius: 8px;
-}
-
-.digit-column {
-  height: 3rem;
-  overflow: hidden;
-  background: #222;
-  border-radius: 4px;
-}
-
-.digits-wrapper {
-  transition: transform 0.3s ease-in-out;
-}
-
-.digit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 3rem;
-  width: 2rem;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 2rem;
-  color: #fff;
-  font-weight: bold;
-}
-</style>
