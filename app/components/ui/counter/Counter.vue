@@ -39,9 +39,9 @@ const formattedCounter = computed(() => {
       </span>
       <div class="flex gap-0.5 rounded-lg bg-black p-2">
         <CounterItem
-          v-for="(digit, index) in formattedCounter"
+          v-for="(value, index) in formattedCounter"
           :key="index"
-          :value="digit"
+          :value="value"
           :base="base"
         />
       </div>
