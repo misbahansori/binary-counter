@@ -1,40 +1,31 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 interface Props {
+  value: number;
   digits: number;
-  base?: 2 | 8 | 10 | 16; // Allow binary, octal, decimal, and hexadecimal
+  base?: 2 | 8 | 10 | 16;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   base: 10,
 });
 
-const counter = ref(0);
-
-const increment = () => {
-  counter.value++;
-};
-
-const decrement = () => {
-  counter.value--;
-};
-
 // Format the counter value based on the selected base
 const formattedCounter = computed(() => {
   let formatted = "";
   switch (props.base) {
     case 2:
-      formatted = counter.value.toString(2);
+      formatted = props.value.toString(2);
       break;
     case 8:
-      formatted = counter.value.toString(8);
+      formatted = props.value.toString(8);
       break;
     case 16:
-      formatted = counter.value.toString(16).toUpperCase();
+      formatted = props.value.toString(16).toUpperCase();
       break;
     default:
-      formatted = counter.value.toString();
+      formatted = props.value.toString();
   }
   return formatted.padStart(props.digits, "0");
 });
@@ -54,11 +45,6 @@ const formattedCounter = computed(() => {
           :base="base"
         />
       </div>
-    </div>
-
-    <div class="flex items-center gap-3">
-      <Button @click="increment">Increment</Button>
-      <Button @click="decrement">Decrement</Button>
     </div>
   </div>
 </template>
