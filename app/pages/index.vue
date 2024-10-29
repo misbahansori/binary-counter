@@ -49,7 +49,7 @@ const getDigitTransform = (digit: string) => {
             <div
               v-for="n in digits"
               :key="n"
-              class="flex h-12 w-8 items-center justify-center font-mono text-2xl font-bold text-white"
+              class="flex h-12 w-8 items-center justify-center font-orbitron text-2xl font-bold text-white"
             >
               {{ n }}
             </div>
