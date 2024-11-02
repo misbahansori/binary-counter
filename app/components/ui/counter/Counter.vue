@@ -1,50 +1,29 @@
 <script setup lang="ts">
-import { computed } from "vue";
+const { digits = 4 } = defineProps<{
+  digits?: number;
+}>();
 
-interface Props {
-  value: number;
-  digits: number;
-  base?: 2 | 8 | 10 | 16;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  base: 10,
+const modelValue = defineModel<number>({
+  default: 0,
 });
 
-// Format the counter value based on the selected base
-const formattedCounter = computed(() => {
-  let formatted = "";
-  switch (props.base) {
-    case 2:
-      formatted = props.value.toString(2);
-      break;
-    case 8:
-      formatted = props.value.toString(8);
-      break;
-    case 16:
-      formatted = props.value.toString(16).toUpperCase();
-      break;
-    default:
-      formatted = props.value.toString();
-  }
-  return formatted.padStart(props.digits, "0");
+const digitsValue = computed(() => {
+  return modelValue.value.toString().padStart(digits, "0").split("");
 });
+
+const base10 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-6">
-    <div class="flex items-center gap-4">
-      <span class="text-sm font-medium text-muted-foreground">
-        Base-{{ base }}
-      </span>
-      <div class="flex gap-0.5 rounded-lg bg-black p-2">
-        <CounterItem
-          v-for="(value, index) in formattedCounter"
-          :key="index"
-          :value="value"
-          :base="base"
-        />
-      </div>
-    </div>
+  <div class="flex items-center rounded bg-neutral-800 p-1">
+    <CounterDigit
+      v-for="digit in digitsValue"
+      :digit="digit"
+      :digits="base10"
+    />
+  </div>
+  <div class="mt-2 flex items-center gap-2">
+    <Button @click="modelValue--">Decrement</Button>
+    <Button @click="modelValue++">Increment</Button>
   </div>
 </template>

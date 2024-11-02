@@ -1,2 +1,2 @@
 export { default as Counter } from "./Counter.vue";
-export { default as CounterItem } from "./CounterItem.vue";
+export { default as CounterDigit } from "./CounterDigit.vue";
