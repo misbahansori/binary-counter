@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import emblaCarouselVue from "embla-carousel-vue";
 
-const { digit, digits } = defineProps<{
+const { digit, digits, isIncrementing } = defineProps<{
   digit: string;
   digits: string[];
+  isIncrementing: boolean;
 }>();
 
 const [emblaRef, emblaApi] = emblaCarouselVue({
@@ -17,6 +18,12 @@ watch(
     const index = digits.indexOf(digit);
 
     if (index === -1) return;
+
+    if (digits.length <= 2) {
+      isIncrementing
+        ? emblaApi.value?.scrollNext()
+        : emblaApi.value?.scrollPrev();
+    }
 
     emblaApi.value?.scrollTo(index);
   },

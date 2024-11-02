@@ -13,7 +13,7 @@ const decimalNumber = ref(0);
       class="relative z-10 flex flex-col items-center justify-center gap-12 py-16 text-center lg:py-24"
     >
       <div class="flex flex-col items-center gap-6">
-        <Counter v-model="decimalNumber" />
+        <Counter v-model="decimalNumber" :base="2" />
       </div>
     </div>
   </div>
