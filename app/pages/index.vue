@@ -13,7 +13,34 @@ const decimalNumber = ref(0);
       class="relative z-10 flex flex-col items-center justify-center gap-12 py-16 text-center lg:py-24"
     >
       <div class="flex flex-col items-center gap-6">
-        <Counter v-model="decimalNumber" :base="2" />
+        <div class="flex flex-col">
+          <span class="text-sm font-medium text-muted-foreground">
+            Binary Number
+          </span>
+          <Counter v-model="decimalNumber" :base="2" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-medium text-muted-foreground">
+            Octal Number
+          </span>
+          <Counter v-model="decimalNumber" :base="8" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-medium text-muted-foreground">
+            Decimal Number
+          </span>
+          <Counter v-model="decimalNumber" :base="10" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-medium text-muted-foreground">
+            Hexadecimal Number
+          </span>
+          <Counter v-model="decimalNumber" :base="16" />
+        </div>
+      </div>
+      <div class="mt-2 flex items-center gap-2">
+        <Button @click="decimalNumber--">Decrement</Button>
+        <Button @click="decimalNumber++">Increment</Button>
       </div>
     </div>
   </div>

@@ -22,12 +22,12 @@ const base16 = [
   "7",
   "8",
   "9",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
 ];
 
 const digits = computed(() => {
@@ -66,9 +66,5 @@ const isIncrementing = computed(() => {
       :digits="digits"
       :isIncrementing="isIncrementing"
     />
-  </div>
-  <div class="mt-2 flex items-center gap-2">
-    <Button @click="modelValue--">Decrement</Button>
-    <Button @click="modelValue++">Increment</Button>
   </div>
 </template>

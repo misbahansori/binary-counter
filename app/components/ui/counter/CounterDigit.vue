@@ -38,7 +38,7 @@ watch(
         :key="digit"
         class="flex h-12 w-8 min-w-0 flex-[0_0_100%] items-center justify-center font-orbitron text-3xl font-bold text-white"
       >
-        {{ digit }}
+        {{ digit.toUpperCase() }}
       </div>
     </div>
   </div>
